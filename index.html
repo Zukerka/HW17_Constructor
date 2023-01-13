@@ -8,25 +8,26 @@
 </head>
 <body>
     <script>
-        function Student(name, surname, birthYear){
+        function Student(name, surname, birthYear, markList, presenceList){
             this.name = name; 
             this.surname = surname;  
             this.birthYear = birthYear; 
-
-            // age(){
-            //     return new Date().getFullYear - this.birthYear; 
-            // }; 
-            // averageScore(){}; 
+            this.markList = new Array(10); 
+            this.presenceList = new Array(10); 
 
         }; 
 
-        // Student.prototype.age = function(){
-        //     return new Date().getFullYear() - this.birthYear;
-        // }
+        Student.prototype.age = function(){
+            return new Date().getFullYear() - this.birthYear;
+        }
+
+        // Student.prototype.averageScore(){
+             
+        // }; 
 
         const ivan = new Student('ivan', 'melnyk', 2000); 
 
-        console.log(ivan); 
+        console.log(ivan.age()); 
 
     </script>
 </body>
