@@ -26,6 +26,16 @@
             return this.markList[this.markList.findIndex(item => item === undefined)] = value; 
         }
 
+        Student.prototype.absent = function(){
+            let index = this.presenceList.findIndex(item => item === undefined);
+            return this.presenceList[index] = false;
+        }
+
+        Student.prototype.present = function(){
+            let index = this.presenceList.findIndex(item => item === undefined);
+            return this.presenceList[index] = true; 
+        }
+
         Student.prototype.count = function(arr){
             let count = 0; 
             for (const i of arr) {
@@ -43,55 +53,111 @@
 
             }, 0)/ this.count(this.markList);
 
-            return `${this.name}'s average score is ${average}`; 
+            return average; 
         }; 
 
-        Student.prototype.absent = function(){
-            let index = this.presenceList.findIndex(item => item === undefined);
-            return this.presenceList[index] = false;
+        Student.prototype.averagePresence = function(){
+            const average = this.presenceList.reduce((prev, cur) => {
+                if (cur !== false)
+                    prev +=cur
+                return prev
+
+            }, 0)/ this.count(this.presenceList);
+
+            return average; 
+        }; 
+
+        Student.prototype.summary = function(){
+
+            if (this.averageScore() >= 9 && this.averagePresence() >= 0.9){
+                return console.log('Ути какой молодчинка!');
+            } else if (this.averageScore() < 9 && this.averagePresence() < 0.9){
+                return console.log('Редиска!')
+            } else if (this.averageScore() < 9 || this.averagePresence() < 0.9){
+                return console.log('Норм, но можно лучше');
+            } 
         }
 
-        Student.prototype.present = function(){
-            let index = this.presenceList.findIndex(item => item === undefined);
-            return this.presenceList[index] = true; 
-        }
-
-        const vasyl = new Student('Vasyl', 'Ivashchuk', 2002, [10, , ,], [, , true,]); 
+        const vasyl = new Student('Vasyl', 'Ivashchuk', 2002, [10, , ,], [, , true]); 
 
         console.log(vasyl);
         console.log(vasyl.age());
-        console.log(vasyl.mark(10));
-        console.log(vasyl.mark(8), vasyl.mark(9), vasyl.mark(8));
+        vasyl.mark(10);
+        vasyl.mark(10);
+        vasyl.mark(10);
+        vasyl.mark(8);
+        vasyl.mark(8);
+        vasyl.mark(8);
+        vasyl.mark(8);
+        vasyl.mark(10);
+        vasyl.mark(8);
+        vasyl.mark(8);
 
         console.log(vasyl.markList);
         console.log(vasyl.averageScore()); 
+
         console.log('----------------')
 
-        console.log(vasyl.absent());
-        console.log(vasyl.absent());
+        vasyl.absent();
+        vasyl.absent();
+        vasyl.present();
+        vasyl.present();
+        vasyl.present();
+        vasyl.present();
+        vasyl.present();
+
         console.log(vasyl.presenceList);
+        console.log(vasyl.averagePresence());
+
+        console.log('----------------')
+
+        vasyl.summary();
+
+        console.log('----------------')
 
         const ivan = new Student('Ivan', 'Melnyk', 2000, [ , , 9], [true, , true, , true]); 
         console.log(ivan);        
         console.log(ivan.age());
-        console.log(ivan.mark(10));
-        console.log(ivan.mark(10));
-
-        console.log(ivan.mark(8));
+        ivan.mark(10);
+        ivan.mark(10);
+        ivan.mark(8);
         
         console.log(ivan.markList);
         console.log(ivan.averageScore()); 
         
         console.log('----------------')
-        console.log(ivan.presenceList.length);
-        console.log(ivan.presenceList);
         
-        console.log(ivan.absent());
-        console.log(ivan.absent());
-        console.log(ivan.present());
-        console.log(ivan.absent());
-        console.log(ivan.absent());
-        console.log(ivan.absent());
+        ivan.present();
+        ivan.present();
+        ivan.present();
+        ivan.present();
+        ivan.present();
+
+        console.log(ivan.presenceList);
+        console.log(ivan.averagePresence());
+
+        ivan.summary();
+        
+        const anna = new Student('Anna', 'Skruta', 1999, [ , , ,], [, ,true]); 
+        console.log(anna);
+        anna.mark(10);
+        anna.mark(7);
+        anna.mark(9);
+        console.log(anna.markList);
+        console.log(anna.averageScore()); 
+
+        anna.present(); 
+        anna.present(); 
+        anna.present(); 
+        anna.absent(); 
+        anna.absent(); 
+        anna.absent(); 
+
+        console.log(anna.presenceList);
+        console.log(anna.averagePresence());
+
+        anna.summary();
+
     </script>
 </body>
 </html>
