@@ -22,18 +22,21 @@
             return `${this.name} is ${new Date().getFullYear() - this.birthYear} years old`;
         }
 
+        Student.prototype.myIndex = function(arr, value){
+            let index = arr.findIndex(item => item === undefined); 
+            if (index >=0) return arr[index] = value;
+        }
+
         Student.prototype.mark = function(value){
-            return this.markList[this.markList.findIndex(item => item === undefined)] = value; 
+            return this.myIndex(this.markList, value)
         }
 
         Student.prototype.absent = function(){
-            let index = this.presenceList.findIndex(item => item === undefined);
-            return this.presenceList[index] = false;
+            return this.myIndex(this.presenceList, false);
         }
 
         Student.prototype.present = function(){
-            let index = this.presenceList.findIndex(item => item === undefined);
-            return this.presenceList[index] = true; 
+            return this.myIndex(this.presenceList, true);
         }
 
         Student.prototype.count = function(arr){
@@ -92,6 +95,8 @@
         vasyl.mark(10);
         vasyl.mark(8);
         vasyl.mark(8);
+        vasyl.mark(7);
+        vasyl.mark(7);
 
         console.log(vasyl.markList);
         console.log(vasyl.averageScore()); 
@@ -100,6 +105,15 @@
 
         vasyl.absent();
         vasyl.absent();
+        vasyl.absent();
+        vasyl.absent();
+        vasyl.absent();
+        vasyl.present();
+        vasyl.present();
+        vasyl.present();
+        vasyl.present();
+        vasyl.present();
+        vasyl.present();
         vasyl.present();
         vasyl.present();
         vasyl.present();
