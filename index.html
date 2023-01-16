@@ -12,23 +12,86 @@
             this.name = name; 
             this.surname = surname;  
             this.birthYear = birthYear; 
-            this.markList = new Array(10); 
-            this.presenceList = new Array(10); 
-
+            this.markList = markList; 
+            this.markList.length = 10; 
+            this.presenceList = presenceList; 
+            this.presenceList.length = 10; 
         }; 
 
         Student.prototype.age = function(){
-            return new Date().getFullYear() - this.birthYear;
+            return `${this.name} is ${new Date().getFullYear() - this.birthYear} years old`;
         }
 
-        // Student.prototype.averageScore(){
-             
-        // }; 
+        Student.prototype.mark = function(value){
+            return this.markList[this.markList.findIndex(item => item === undefined)] = value; 
+        }
 
-        const ivan = new Student('ivan', 'melnyk', 2000); 
+        Student.prototype.count = function(arr){
+            let count = 0; 
+            for (const i of arr) {
+                if(i !== undefined){
+                    count ++;
+                }
+            }
+            return count; 
+        }
 
-        console.log(ivan.age()); 
+        Student.prototype.averageScore = function(){
+            const average = this.markList.reduce((prev, cur) => {
+                    prev +=cur
+                return prev
 
+            }, 0)/ this.count(this.markList);
+
+            return `${this.name}'s average score is ${average}`; 
+        }; 
+
+        Student.prototype.absent = function(){
+            let index = this.presenceList.findIndex(item => item === undefined);
+            return this.presenceList[index] = false;
+        }
+
+        Student.prototype.present = function(){
+            let index = this.presenceList.findIndex(item => item === undefined);
+            return this.presenceList[index] = true; 
+        }
+
+        const vasyl = new Student('Vasyl', 'Ivashchuk', 2002, [10, , ,], [, , true,]); 
+
+        console.log(vasyl);
+        console.log(vasyl.age());
+        console.log(vasyl.mark(10));
+        console.log(vasyl.mark(8), vasyl.mark(9), vasyl.mark(8));
+
+        console.log(vasyl.markList);
+        console.log(vasyl.averageScore()); 
+        console.log('----------------')
+
+        console.log(vasyl.absent());
+        console.log(vasyl.absent());
+        console.log(vasyl.presenceList);
+
+        const ivan = new Student('Ivan', 'Melnyk', 2000, [ , , 9], [true, , true, , true]); 
+        console.log(ivan);        
+        console.log(ivan.age());
+        console.log(ivan.mark(10));
+        console.log(ivan.mark(10));
+
+        console.log(ivan.mark(8));
+        
+        console.log(ivan.markList);
+        console.log(ivan.averageScore()); 
+        
+        console.log('----------------')
+        console.log(ivan.presenceList.length);
+        console.log(ivan.presenceList);
+        
+        console.log(ivan.absent());
+        console.log(ivan.absent());
+        console.log(ivan.present());
+        console.log(ivan.absent());
+        console.log(ivan.absent());
+        console.log(ivan.absent());
     </script>
 </body>
 </html>
